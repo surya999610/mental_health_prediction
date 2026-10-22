@@ -1,5 +1,5 @@
 // Change this if your FastAPI server runs somewhere else.
-const API_BASE = "https://mental-health-prediction-2-sunh.onrender.com/";
+const API_BASE = "https://mental-health-prediction-2-sunh.onrender.com";
 const REQUEST_TIMEOUT_MS = 30000;
 
 const form = document.getElementById("predict-form");
