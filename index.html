@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student mental health score predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-head">
+    <div class="hero-inner">
+      <h1>How is social media use shaping a student's wellbeing?</h1>
+      <p class="lede">Enter a student's profile, habits and daily routine. The model returns a predicted mental health score.</p>
+      <ul class="chips"><li>12 inputs</li><li>Random-forest model</li><li>Instant prediction</li></ul>
+
+    </div>
+  </header>
+
+  <main class="layout">
+    <form id="predict-form" novalidate>
+      <fieldset>
+        <legend><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>About the student</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="Age">Age</label>
+            <input type="number" id="Age" name="Age" min="10" max="100" step="1" placeholder="e.g. 20" required>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Gender">Gender</label>
+            <select id="Gender" name="Gender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option>Male</option><option>Female</option>
+            </select>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Country">Country</label>
+            <input type="text" id="Country" name="Country" list="countries" placeholder="e.g. India" autocomplete="off" required>
+            <datalist id="countries">
+              <option value="India"><option value="USA"><option value="Canada"><option value="Australia"><option value="UK">
+              <option value="Germany"><option value="Mexico"><option value="Turkey"><option value="France"><option value="Other">
+            </datalist>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Academic_Level">Academic level</label>
+            <select id="Academic_Level" name="Academic_Level" required>
+              <option value="" disabled selected>Select level</option>
+              <option>High School</option><option>Undergraduate</option><option>Graduate</option>
+            </select>
+            <small class="err"></small>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>Social media habits</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="Most_Used_Platform">Most used platform</label>
+            <select id="Most_Used_Platform" name="Most_Used_Platform" required>
+              <option value="" disabled selected>Select platform</option>
+              <option>Facebook</option><option>Instagram</option><option>TikTok</option><option>YouTube</option>
+              <option>Snapchat</option><option>Twitter</option><option>LinkedIn</option><option>WhatsApp</option>
+              <option>WeChat</option><option>LINE</option><option>KakaoTalk</option><option>VKontakte</option>
+            </select>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Purpose_Of_Use">Main purpose of use</label>
+            <select id="Purpose_Of_Use" name="Purpose_Of_Use" required>
+              <option value="" disabled selected>Select purpose</option>
+              <option>Entertainment</option><option>Networking</option><option>Education</option><option>News</option>
+            </select>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Avg_Daily_Usage_Hours">Daily usage (hours)</label>
+            <input type="number" id="Avg_Daily_Usage_Hours" name="Avg_Daily_Usage_Hours" min="0" max="24" step="0.1" placeholder="0 – 24" required>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Daily_Unlocks">Phone unlocks per day</label>
+            <input type="number" id="Daily_Unlocks" name="Daily_Unlocks" min="0" step="1" placeholder="e.g. 80" required>
+            <small class="err"></small>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></span>Daily routine</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="Study_Hours">Study (hours)</label>
+            <input type="number" id="Study_Hours" name="Study_Hours" min="0" max="24" step="0.1" placeholder="0 – 24" required>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Physical_Activity_Hours">Physical activity (hours)</label>
+            <input type="number" id="Physical_Activity_Hours" name="Physical_Activity_Hours" min="0" max="24" step="0.1" placeholder="0 – 24" required>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Sleep_Hours_Per_Night">Sleep per night (hours)</label>
+            <input type="number" id="Sleep_Hours_Per_Night" name="Sleep_Hours_Per_Night" min="0" max="24" step="0.1" placeholder="0 – 24" required>
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="Stress_Level">Stress level</label>
+            <select id="Stress_Level" name="Stress_Level" required>
+              <option value="" disabled selected>Select stress level</option>
+              <option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+            </select>
+            <small class="err"></small>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn" class="primary"><span class="spinner" aria-hidden="true"></span><span class="label">Predict score</span></button>
+        <button type="reset" id="reset-btn" class="ghost">Clear form</button>
+      </div>
+    </form>
+
+    <aside class="result-panel" aria-live="polite">
+      <section id="state-idle" class="state">
+        <svg class="dial" viewBox="0 0 200 120" aria-hidden="true"><path class="track" d="M20 100 A80 80 0 0 1 180 100"/></svg>
+        <h2>Your result appears here</h2>
+        <p>Fill in all twelve fields and choose Predict score.</p>
+      </section>
+
+      <section id="state-loading" class="state" hidden>
+        <div class="loader" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h2>Running the model</h2>
+        <p>Waiting for the API to respond.</p>
+      </section>
+
+      <section id="state-result" class="state" hidden>
+        <svg class="dial" viewBox="0 0 200 120" aria-hidden="true">
+          <path class="track" d="M20 100 A80 80 0 0 1 180 100"/>
+          <path class="fill" id="dial-fill" d="M20 100 A80 80 0 0 1 180 100" pathLength="100"/>
+        </svg>
+        <p class="score"><span id="score-value">0.00</span><small>/ 10</small></p>
+        <h2 id="band-title"></h2>
+        <p id="band-text"></p>
+        <div class="recap" id="recap"></div>
+        <p class="note">Predicted mental health score from the model. Informational only, not a medical assessment.</p>
+      </section>
+
+      <section id="state-error" class="state" hidden role="alert">
+        <h2 id="error-title">Something went wrong</h2>
+        <p id="error-text"></p>
+        <ul id="error-list"></ul>
+        <button type="button" id="retry-btn" class="ghost">Dismiss</button>
+      </section>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
